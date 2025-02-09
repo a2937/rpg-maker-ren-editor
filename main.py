@@ -2,6 +2,7 @@ import json
 import tkinter as tk
 from tkinter import messagebox
 
+
 class EventPage:
     def __init__(self, jsonData):
         self.conditions = jsonData["conditions"]
@@ -65,9 +66,22 @@ def show_event_data(event_page):
 
     return output
 
+def save_event_page(event_page, filename):
+    json_data = json.dumps(event_page.__dict__)
+    with open(filename, 'w') as f:
+        f.write(json_data)
+
+def load_event_page(filename):
+    with open(filename, 'r') as f:
+        json_data = f.read()
+    event_page_dict = json.loads(json_data)
+    return EventPage(event_page_dict)
+
 def show_parsed_data(event_page):
     text_box.delete(1.0, "end")
     text_box.insert("1.0",(show_event_data(event_page)))
+
+
 
 # Create a button to parse the JSON data and display the result
 button = tk.Button(root, text="Parse JSON", command=lambda: show_parsed_data(json.loads(jsonData)))
