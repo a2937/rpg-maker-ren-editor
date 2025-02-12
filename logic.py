@@ -11,6 +11,8 @@ def transform(jsonString):
 
 def restore(myString):
   normal = ""
+  if myString.strip() == "":
+    return '{}'; 
   dataPattern = re.compile(r'([\w]+)\s*:\s*([\w\d]+)')
   rows = myString.strip().split("\n")
   normal += "{"
